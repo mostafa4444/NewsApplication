@@ -19,22 +19,13 @@
             android:layout_height="wrap_content"/>
 
         <com.google.android.material.button.MaterialButton
-            android:fontFamily="@font/poppins_medium"
             android:id="@+id/to_category_btn"
-            android:textSize="25sp"
-            android:textAllCaps="false"
             android:text="@string/next_txt"
-            android:textColor="@color/white"
             app:cornerRadius="15dp"
-            android:backgroundTint="@color/main_color"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginStart="@dimen/dp30w"
-            android:layout_marginEnd="@dimen/dp30w"
-            android:layout_marginBottom="@dimen/dp30h"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp55h"/>
+            style="@style/onboarding_btn_style"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

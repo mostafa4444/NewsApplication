@@ -1,14 +1,13 @@
-package com.task.news.ui.fragment.onboarding.landingCategory
+package com.task.news.ui.fragment.home
 
-import androidx.lifecycle.ViewModel
 import com.task.news.base.BaseViewModel
 import com.task.news.local.LocalRepoImpl
-import com.task.news.model.prefsModel.FilterModel
+import com.task.news.utils.constant.PrefsKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
         private val repository: LocalRepoImpl
 ) : BaseViewModel() {
     override fun stop() {
@@ -17,7 +16,10 @@ class CategoryViewModel @Inject constructor(
     override fun start() {
     }
 
-    fun saveFilterModel_saveSelectionState(filterModel: FilterModel){
-        repository.submitSelectionProcess(filterModel)
+    fun checkOnBoardingStatus(): Boolean{
+        return repository.returnBoolean(PrefsKeys.ON_BOARDING_SELECTION)
     }
+
+    fun getMyFilterModel() = repository.fetchFilterModel()
+
 }

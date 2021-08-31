@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <com.google.android.material.chip.Chip
+        android:gravity="center"
+    style="@style/custom_choice_chip"
+    xmlns:android="http://schemas.android.com/apk/res/android" />
+</layout>

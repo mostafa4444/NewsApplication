@@ -22,7 +22,7 @@ class SplashFragment : BaseFragment<SplashViewModel , SplashFragmentBinding>() {
             }
             override fun onFinish() {
                 if (baseViewModel?.checkOnBoardingStatus() == true){
-
+                    findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
                 }else{
                     findNavController().navigate(R.id.action_splashFragment_to_countryFragment)
                 }

@@ -14,6 +14,14 @@
             app:popExitAnim="@anim/slide_out_right"
             android:id="@+id/action_splashFragment_to_countryFragment"
             app:destination="@id/countryFragment" />
+        <action
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/categoryFragment"
@@ -22,6 +30,14 @@
         <argument
             android:name="countryCode"
             app:argType="string" />
+        <action
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_categoryFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/countryFragment"
@@ -35,4 +51,8 @@
             android:id="@+id/action_countryFragment_to_categoryFragment"
             app:destination="@id/categoryFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.task.news.ui.fragment.home.HomeFragment"
+        android:label="HomeFragment" />
 </navigation>

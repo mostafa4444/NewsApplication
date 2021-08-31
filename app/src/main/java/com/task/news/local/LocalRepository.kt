@@ -1,5 +1,7 @@
 package com.task.news.local
 
+import com.task.news.model.prefsModel.FilterModel
+
 
 interface LocalRepository {
 
@@ -10,4 +12,6 @@ interface LocalRepository {
     fun returnInt(key: String):Int
     fun saveString(key: String , value: String)
     fun returnString(key: String): String
+    fun submitSelectionProcess(filterModel: FilterModel)
+    fun fetchFilterModel(): FilterModel
 }
