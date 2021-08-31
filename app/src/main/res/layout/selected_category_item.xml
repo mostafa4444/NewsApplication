@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tool="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="myItem"
+            type="com.task.news.model.prefsModel.CategoryModel" />
+    </data>
+
+    <LinearLayout
+        android:layout_marginStart="10dp"
+        android:id="@+id/category_container"
+        android:gravity="center"
+        android:background="@drawable/custom_text_view"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="@dimen/dp80w"
+        android:layout_height="@dimen/dp30h">
+
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_regular"
+            android:id="@+id/name_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{myItem.name}"
+            android:textSize="@dimen/sp10"
+            android:textColor="@color/main_color"
+            android:textStyle="bold"
+            tools:text="Sports"/>
+
+    </LinearLayout>
+</layout>

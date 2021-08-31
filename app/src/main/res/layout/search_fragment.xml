@@ -2,95 +2,133 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBar"
-            android:backgroundTint="@color/orange"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
+            <TextView
+                android:layout_marginStart="@dimen/dp10w"
+                android:layout_marginEnd="@dimen/dp10w"
+                android:id="@+id/search_qoute"
+                android:fontFamily="@font/poppins_medium"
+                android:textColor="@color/black"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                app:title="@string/app_name"
-                android:backgroundTint="@color/orange"
-                android:layout_gravity="center"
-                app:buttonGravity="center_vertical"
-                app:menu="@menu/appbar_menu"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="@dimen/dp10h"
+                android:text="@string/type_to_search"
                 />
 
-        </com.google.android.material.appbar.AppBarLayout>
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp10h"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_qoute"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/search_linear">
+                <EditText
+                    android:layout_marginStart="@dimen/dp20w"
+                    android:layout_weight="1"
+                    android:id="@+id/search_edt"
+                    android:textSize="@dimen/sp12"
+                    android:fontFamily="@font/poppins_regular"
+                    android:textColorHint="@color/main_color"
+                    android:hint="@string/search_txt"
+                    android:paddingEnd="8dp"
+                    android:paddingStart="@dimen/dp10w"
+                    android:layout_gravity="start|center_vertical"
+                    android:gravity="start|center_vertical"
+                    android:background="@drawable/custom_edittext_search"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/dp40h"
+                    />
 
-        <androidx.core.widget.NestedScrollView
-            android:fillViewport="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <LinearLayout
+                    android:id="@+id/search_btn"
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/dp10w"
+                    android:layout_marginEnd="@dimen/dp20w"
+                    android:background="@drawable/circle_view"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/white"
+                    <ImageView
+                        android:layout_width="@dimen/dp20w"
+                        android:layout_height="@dimen/dp20h"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_baseline_search_24" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginBottom="@dimen/dp10h"
+                android:layout_marginTop="@dimen/dp10h"
+                android:background="@color/orange"
+                android:id="@+id/divider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/search_linear"
                 android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <com.google.android.material.chip.ChipGroup
+                app:selectionRequired="false"
+                app:singleSelection="true"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_marginStart="@dimen/dp20w"
+                android:layout_marginEnd="@dimen/dp20w"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider"
+                android:id="@+id/category_chip"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.chip.ChipGroup
-                    app:selectionRequired="false"
-                    app:singleSelection="true"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_marginStart="@dimen/dp20w"
-                    android:visibility="visible"
-                    android:layout_marginTop="@dimen/dp15h"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/choices_chip"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+            </com.google.android.material.chip.ChipGroup>
+            <View
+                android:layout_marginBottom="@dimen/dp10h"
+                android:background="@color/orange"
+                android:id="@+id/divider2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/category_chip"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="@dimen/dp20h"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/news_recycler"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider2" />
 
-                </com.google.android.material.chip.ChipGroup>
+            <include
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/news_recycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/news_shimmer"
+                layout="@layout/shimmer_loader_layout"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_marginTop="@dimen/dp10h"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/news_recycler"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/news_shimmer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <LinearLayout
-                        android:layout_gravity="center"
-                        android:gravity="start"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <include layout="@layout/shimmer_news_ui" />
-                        <include layout="@layout/shimmer_news_two" />
-                        <include layout="@layout/shimmer_news_ui" />
 
-                    </LinearLayout>
-                </com.facebook.shimmer.ShimmerFrameLayout>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
 
 </layout>

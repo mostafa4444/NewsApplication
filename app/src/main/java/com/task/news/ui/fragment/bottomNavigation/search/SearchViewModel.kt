@@ -7,6 +7,7 @@ import com.task.news.base.BaseViewModel
 import com.task.news.local.LocalRepoImpl
 import com.task.news.model.request.HeadlineRequest
 import com.task.news.model.response.news.HeadlineResponse
+import com.task.news.ui.usecases.HeadlineUseCase
 import com.task.news.ui.usecases.SearchUseCase
 import com.task.news.utils.LiveDataResource
 import com.task.news.utils.constant.AppConstants
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
         private val repository: LocalRepoImpl,
-        private val searchUseCase: SearchUseCase
+        private val searchUseCase: HeadlineUseCase
 ) : BaseViewModel() {
     override fun stop() {
     }
@@ -32,12 +33,11 @@ class SearchViewModel @Inject constructor(
     val searchNews: StateFlow<LiveDataResource<HeadlineResponse>> get() = _searchNews
 
 
-    fun fetchNews(queryTxt: String){
+    fun fetchNews(queryTxt: String = "" , category: String = ""){
+        _searchNews.value = LiveDataResource.Loading()
         val requestModel = HeadlineRequest(
-                country = repository.fetchFilterModel().country,
-                pageSize = 20,
-                page = 1,
-                q = queryTxt
+                q = queryTxt,
+                category = category
         )
         headerParams["X-Api-Key"] = AppConstants.API_KEY
         searchUseCase.execute({

@@ -32,13 +32,13 @@
     </style>
 
     <style name="AppChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipCornerRadius">10dp</item>
+        <item name="chipCornerRadius">15dp</item>
         <item name="checkedIconEnabled">true</item>
         <item name="checkedIconVisible">true</item>
         <item name="checkedIcon">@drawable/ic_tick</item>
         <item name="chipBackgroundColor">@drawable/chip_bg</item>
         <item name="chipStrokeWidth">@dimen/dp2w</item>
-        <item name="chipStrokeColor">@color/orange</item>
+        <item name="chipStrokeColor">@color/main_color</item>
         <item name="chipIconSize">@dimen/sp14</item>
     </style>
 

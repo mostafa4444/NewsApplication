@@ -60,6 +60,7 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         subscribeLiveData()
     }
 
+
     private fun observeNetworkConnection() {
         connectivityManager.observe(viewLifecycleOwner, { isAvailable ->
             when (isAvailable) {
