@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="myItem"
+            type="com.task.news.model.CountryModel" />
+    </data>
+
+<LinearLayout
+
+    android:id="@+id/country_container"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:layout_marginBottom="@dimen/dp20h"
+    android:layout_marginStart="@dimen/dp30w"
+    android:layout_marginEnd="@dimen/dp30w"
+    android:background="@drawable/default_country_border"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp50h"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <TextView
+        android:fontFamily="@font/poppins_regular"
+        android:textAllCaps="true"
+        android:text="@{myItem.code}"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/en_txt"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sp20"
+        tools:text="US"/>
+
+</LinearLayout>
+
+</layout>

@@ -4,6 +4,8 @@ import android.os.CountDownTimer
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.task.news.R
 import com.task.news.base.BaseFragment
 import com.task.news.databinding.SplashFragmentBinding
@@ -19,6 +21,11 @@ class SplashFragment : BaseFragment<SplashViewModel , SplashFragmentBinding>() {
             override fun onTick(millisUntilFinished: Long) {
             }
             override fun onFinish() {
+                if (baseViewModel?.checkOnBoardingStatus() == true){
+
+                }else{
+                    findNavController().navigate(R.id.action_splashFragment_to_countryFragment)
+                }
             }
         }
         timer.start()
@@ -28,6 +35,8 @@ class SplashFragment : BaseFragment<SplashViewModel , SplashFragmentBinding>() {
     override fun getContentView(): Int = R.layout.splash_fragment
 
     override fun initializeViewModel() {
+        val viewModel: SplashViewModel by viewModels()
+        baseViewModel = viewModel
     }
 
     override fun onClick(v: View?) {
