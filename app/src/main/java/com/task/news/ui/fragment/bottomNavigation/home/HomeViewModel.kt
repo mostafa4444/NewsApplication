@@ -23,7 +23,7 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun start() {
-        fetchNews(0)
+        fetchNews()
     }
 
     fun getMyFilterModel() = repository.fetchFilterModel()
@@ -33,14 +33,19 @@ class HomeViewModel @Inject constructor(
     val headlineNews: StateFlow<LiveDataResource<HeadlineResponse>> get() = _headlineNews
 
 
-    fun fetchNews(category: Int){
+    fun fetchNews(category: String = ""){
         val data = repository.fetchFilterModel()
+        val requestCategory = if (category.isNullOrEmpty()){
+            data.categories[0].name
+        }else{
+            category
+        }
         _headlineNews.value = LiveDataResource.Loading()
         val requestModel = HeadlineRequest(
-                country = repository.fetchFilterModel().country,
+                country = data.country,
                 pageSize = 100,
                 page = 1,
-                category = data.categories[category].name
+                category = requestCategory
         )
         headerParams["X-Api-Key"] = AppConstants.API_KEY
         headlineUseCase.execute({
@@ -57,7 +62,7 @@ class HomeViewModel @Inject constructor(
         } , requestModel.serializeToMap().toMutableMap() , headerParams)
     }
 
-    fun cancelAndStartNewCall(category:Int){
+    fun cancelAndStartNewCall(category:String){
         headlineUseCase.unsubscribe()
         fetchNews(category)
     }

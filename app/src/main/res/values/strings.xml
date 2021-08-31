@@ -7,4 +7,5 @@
     <string name="max_cat_violation">You have to choose three category only</string>
     <string name="complete_categories">You must choose three category to continue</string>
     <string name="search_txt">Search here…</string>
+    <string name="type_to_search">Type or select category to proceed search process</string>
 </resources>

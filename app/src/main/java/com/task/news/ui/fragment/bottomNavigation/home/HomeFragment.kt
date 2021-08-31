@@ -12,8 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
 import com.task.news.base.BaseFragment
 import com.task.news.databinding.HomeFragmentBinding
+import com.task.news.model.prefsModel.CategoryModel
 import com.task.news.model.response.news.Article
+import com.task.news.ui.fragment.bottomNavigation.home.adapter.CategoryClickEvent
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.NewsAdapter
+import com.task.news.ui.fragment.bottomNavigation.home.adapter.SelectedCategoryRecycler
 import com.task.news.utils.LiveDataResource
 import com.task.news.utils.WidgetUtils.setGone
 import com.task.news.utils.WidgetUtils.setVisible
@@ -29,9 +32,7 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
     var def : ColorStateList?= null
 
     override fun initView() {
-        def = baseViewBinding.categoryTabTwo.textColors
         bindCategories()
-        initClicks()
     }
 
     override fun getContentView(): Int = R.layout.home_fragment
@@ -43,45 +44,14 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
 
     private fun bindCategories(){
         baseViewModel?.getMyFilterModel()?.categories?.let {
-            val tabsArray = arrayListOf(baseViewBinding.categoryTabOne , baseViewBinding.categoryTabTwo , baseViewBinding.categoryTabThree)
-            for (i in tabsArray.indices){
-                tabsArray[i].text = it[i].name
-            }
+            initCategoryRecycler(baseViewBinding.categoryRecycler , it.toMutableList())
         }
 
     }
 
-    private fun initClicks(){
-        baseViewBinding.categoryTabOne.setOnClickListener(this)
-        baseViewBinding.categoryTabTwo.setOnClickListener(this)
-        baseViewBinding.categoryTabThree.setOnClickListener(this)
-    }
 
     override fun onClick(v: View?) {
         when(v){
-            baseViewBinding.categoryTabOne->{
-                baseViewBinding.selectedTab.animate().x(0F).duration = 100
-                baseViewBinding.categoryTabOne.setTextColor(ContextCompat.getColor(context?.applicationContext!! , R.color.white))
-                baseViewBinding.categoryTabTwo.setTextColor(def)
-                baseViewBinding.categoryTabThree.setTextColor(def)
-                baseViewModel?.cancelAndStartNewCall(0)
-            }
-            baseViewBinding.categoryTabThree->{
-                val size = baseViewBinding.categoryTabTwo.width
-                baseViewBinding.selectedTab.animate().x(size.toFloat() * 2).duration = 100
-                baseViewBinding.categoryTabThree.setTextColor(ContextCompat.getColor(context?.applicationContext!!, R.color.white))
-                baseViewBinding.categoryTabTwo.setTextColor(def)
-                baseViewBinding.categoryTabOne.setTextColor(def)
-                baseViewModel?.cancelAndStartNewCall(2)
-            }
-            baseViewBinding.categoryTabTwo->{
-                val size = baseViewBinding.categoryTabTwo.width
-                baseViewBinding.selectedTab.animate().x(size.toFloat()).duration = 100
-                baseViewBinding.categoryTabTwo.setTextColor(ContextCompat.getColor(context?.applicationContext!! , R.color.white))
-                baseViewBinding.categoryTabOne.setTextColor(def)
-                baseViewBinding.categoryTabThree.setTextColor(def)
-                baseViewModel?.cancelAndStartNewCall(1)
-            }
         }
     }
 
@@ -100,6 +70,22 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
         recyclerView.startLayoutAnimation()
     }
 
+    val categoryClickEventImpl = object : CategoryClickEvent{
+        override fun categoryClicked(categoryModel: CategoryModel) {
+            baseViewModel?.cancelAndStartNewCall(categoryModel.name)
+        }
+
+    }
+
+    private fun initCategoryRecycler(recyclerView: RecyclerView, itemList: MutableList<CategoryModel>){
+        recyclerView.layoutManager = LinearLayoutManager(context ,  LinearLayoutManager.HORIZONTAL , false)
+        val adapter = SelectedCategoryRecycler().apply {
+            submitMyList(itemList , categoryClickEventImpl)
+        }
+        recyclerView.setVisible()
+        recyclerView.adapter = adapter
+        recyclerView.startLayoutAnimation()
+    }
     private fun bindHeadlineNewsData(){
         lifecycleScope.launchWhenStarted {
             baseViewModel?.headlineNews?.collect{
@@ -108,26 +94,22 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentBinding>() {
                         Timber.e("Size is ${it.data?.articles?.size}")
                         baseViewBinding.newsRecycler
                         it.data?.articles?.let { data->
-                            baseViewBinding.newsShimmer.setGone()
+                            baseViewBinding.newsShimmer.root.setGone()
                             initNewsAdapter(baseViewBinding.newsRecycler , data.toMutableList())
                         }
                     }
                     is LiveDataResource.Loading -> {
-                        baseViewBinding.newsShimmer.setVisible()
+                        baseViewBinding.newsShimmer.root.setVisible()
                         baseViewBinding.newsRecycler.setGone()
                     }
                     is LiveDataResource.Error -> {
-                        baseViewBinding.newsShimmer.setGone()
+                        baseViewBinding.newsShimmer.root.setGone()
                         baseViewBinding.newsRecycler.setGone()
                     }else->{}
                 }
             }
         }
     }
-
-
-
-
 
 
 }

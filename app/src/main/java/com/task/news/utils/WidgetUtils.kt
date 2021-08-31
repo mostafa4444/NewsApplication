@@ -2,6 +2,7 @@ package com.task.news.utils
 
 import android.view.View
 import android.widget.EditText
+import android.widget.FrameLayout
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.SearchView
 import com.task.news.R
@@ -23,6 +24,18 @@ object WidgetUtils {
     }
 
     fun View.setGone() {
+        this.visibility = View.GONE
+    }
+
+    fun FrameLayout.setVisible() {
+        this.visibility = View.VISIBLE
+    }
+
+    fun FrameLayout.setInvisible() {
+        this.visibility = View.INVISIBLE
+    }
+
+    fun FrameLayout.setGone() {
         this.visibility = View.GONE
     }
 }
