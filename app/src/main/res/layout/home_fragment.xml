@@ -2,61 +2,108 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appBar"
-            android:backgroundTint="@color/orange"
+        <LinearLayout
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/tab_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/topAppBar"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                app:title="@string/app_name"
-                android:backgroundTint="@color/orange"
-                android:layout_gravity="center"
-                app:buttonGravity="center_vertical"
-                app:menu="@menu/appbar_menu"
-                style="@style/Widget.MaterialComponents.Toolbar.Primary"
-                />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:fillViewport="true"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.chip.ChipGroup
-                    app:selectionRequired="false"
-                    app:singleSelection="true"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:layout_marginStart="@dimen/dp20w"
-                    android:visibility="visible"
-                    android:layout_marginTop="@dimen/dp15h"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:id="@+id/choices_chip"
+                android:layout_height="@dimen/dp40h"
+                android:layout_marginTop="@dimen/dp10h"
+                android:layout_marginStart="@dimen/dp20w"
+                android:layout_marginEnd="@dimen/dp20w"
+                android:background="@drawable/tabs_background">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text=""
+                        android:background="@drawable/selected_tab_bg"
+                        android:id="@+id/selected_tab"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text=""
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text=""
 
-                </com.google.android.material.chip.ChipGroup>
+                        />
+                </LinearLayout>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:textColor="@color/white"
+                        style="@style/tab_text_style"
+                        android:text=""
+                        android:id="@+id/category_tab_one"/>
+                    <TextView
+                        style="@style/tab_text_style"
+                        android:text=""
+                        android:id="@+id/category_tab_two"/>
+                    <TextView
+                        style="@style/tab_text_style"
+                        android:text=""
+                        android:id="@+id/category_tab_three"/>
+                </LinearLayout>
+            </FrameLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="@dimen/dp10h"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/news_recycler"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_linear" />
+
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/news_shimmer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_linear"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:gravity="start"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <include layout="@layout/shimmer_news_ui" />
+                <include layout="@layout/shimmer_news_two" />
+                <include layout="@layout/shimmer_news_ui" />
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

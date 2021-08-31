@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
 import com.task.news.base.BaseFragment
 import com.task.news.databinding.CategoryFragmentBinding
-import com.task.news.model.CategoryModel
+import com.task.news.model.prefsModel.CategoryModel
 import com.task.news.model.prefsModel.FilterModel
 import com.task.news.ui.fragment.onboarding.landingCategory.adapter.CategoryAdapter
 import dagger.hilt.android.AndroidEntryPoint

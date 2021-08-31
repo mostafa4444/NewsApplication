@@ -15,9 +15,9 @@ abstract class BaseUseCase<T>(protected var dataRepository: DataRepository) {
     var backgroundContext: CoroutineContext = Dispatchers.IO
     var foregroundContext: CoroutineContext = Dispatchers.Main
 
-    protected abstract suspend fun executeOnBackground(map: MutableMap<String, Any> , headerMap: Map<String , Any> ?= null): T
+    protected abstract suspend fun executeOnBackground(map: MutableMap<String, Any>   , headerMap:MutableMap<String, String> ): T
 
-    fun execute(block: CompletionBlock<T>, map: MutableMap<String, Any> , headerMap: Map<String, Any>?= null) {
+    fun execute(block: CompletionBlock<T>, map:MutableMap<String,Any> , headerMap:MutableMap<String, String>) {
         val response = Request<T>().apply { block() }
         parentJob = Job()
         CoroutineScope(foregroundContext + parentJob).launch {
@@ -27,7 +27,7 @@ abstract class BaseUseCase<T>(protected var dataRepository: DataRepository) {
                 }
                 response(result)
 
-            } catch (unknownException: UnknownHostException) {
+            }catch (unknownException: UnknownHostException){
                 response(unknownException)
             } catch (cancellationException: CancellationException) {
                 response(cancellationException)

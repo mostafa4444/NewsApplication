@@ -5,7 +5,7 @@
     <data>
         <variable
             name="myItem"
-            type="com.task.news.model.CategoryModel" />
+            type="com.task.news.model.prefsModel.CategoryModel" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

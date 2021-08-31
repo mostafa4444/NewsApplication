@@ -10,10 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
 import com.task.news.databinding.CategoryItemBinding
-import com.task.news.databinding.CountryItemBinding
-import com.task.news.model.CategoryModel
-import com.task.news.model.CountryModel
-import com.task.news.ui.fragment.onboarding.landingCountry.adapter.CountryAdapter
+import com.task.news.model.prefsModel.CategoryModel
 
 class CategoryAdapter (
         myList: List<CategoryModel> = listOf()

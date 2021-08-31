@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
 import com.task.news.databinding.CountryItemBinding
-import com.task.news.model.CountryModel
+import com.task.news.model.prefsModel.CountryModel
 import kotlin.collections.ArrayList
 
 class CountryAdapter (

@@ -3,7 +3,7 @@
     <data>
         <variable
             name="myItem"
-            type="com.task.news.model.CountryModel" />
+            type="com.task.news.model.prefsModel.CountryModel" />
     </data>
 
 <LinearLayout

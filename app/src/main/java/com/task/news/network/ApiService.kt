@@ -1,5 +1,11 @@
 package com.task.news.network
 
+import com.google.firebase.database.collection.RBTreeSortedMap
+import com.task.news.model.response.news.HeadlineResponse
+import retrofit2.http.GET
+import retrofit2.http.HeaderMap
+import retrofit2.http.QueryMap
+
 
 /*
     Include all API Services
@@ -7,8 +13,13 @@ package com.task.news.network
 
 interface ApiService {
 
-//    @JvmSuppressWildcards
-//    @POST("getNotification")
-//    suspend fun userNotifications(@HeaderMap headers: Map<String, Any> ,@Body requestModel: TokenRequest) : NotificationResponse
+    @JvmSuppressWildcards
+    @GET("top-headlines")
+    suspend fun fetchHeadLineNews(@HeaderMap headers: Map<String, String>, @QueryMap queryMap: Map<String , Any>) : HeadlineResponse
+
+
+    @JvmSuppressWildcards
+    @GET("everything")
+    suspend fun fetchAllNewsToSearch(@HeaderMap headers: Map<String, String>, @QueryMap queryMap: Map<String , Any>) : HeadlineResponse
 
 }

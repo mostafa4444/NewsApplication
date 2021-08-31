@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="myItem"
+            type="com.task.news.model.response.news.Article" />
+    </data>
+
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="10dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingBottom="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/item_img"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp100h"
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"/>
+
+        <TextView
+            android:text="@{myItem.title}"
+            android:textSize="@dimen/sp10"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/black"
+            tools:text="Kanye West Shaded Kim Kardashian For Divorcing Him And Gave Details Of Their Intense Arguments Over Trust Issues, Distance, And Family Secrets In Lyrics From His New Album - BuzzFeed News"
+            android:layout_margin="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/item_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/title_txt"
+            android:maxLines="2"/>
+
+        <TextView
+            android:text="@{myItem.description}"
+            android:textSize="@dimen/sp8"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/orange"
+            tools:text="Too many complaints made it hard for me to think. Would you shut up? I can’t hear myself drink."
+            android:layout_margin="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/desc_txt"
+            android:maxLines="2"/>
+
+        <TextView
+            android:text="@{myItem.source.name}"
+            android:textSize="@dimen/sp8"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/main_color"
+            tools:text="Source: BuzzFeed News"
+            android:layout_margin="5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/desc_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/date_txt"
+            android:maxLines="1"/>
+
+
+        <TextView
+            android:text="@{myItem.publishedAt}"
+            tools:text="2021-08-31T12:18:00Z"
+            android:textSize="@dimen/sp8"
+            android:fontFamily="@font/poppins_bold"
+            android:textColor="@color/main_color"
+            android:layout_margin="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/desc_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/source_txt"
+            android:maxLines="1"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
+</layout>
