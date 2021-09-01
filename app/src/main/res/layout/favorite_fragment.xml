@@ -19,6 +19,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <include
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/no_data_layout"
+            layout="@layout/no_data_found_layout"/>
+
         <com.facebook.shimmer.ShimmerFrameLayout android:id="@+id/news_shimmer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

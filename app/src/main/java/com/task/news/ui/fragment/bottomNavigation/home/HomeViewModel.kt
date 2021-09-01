@@ -13,6 +13,7 @@ import com.task.news.utils.constant.ClassConversion.serializeToMap
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import okhttp3.internal.checkOffsetAndCount
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -24,39 +25,52 @@ class HomeViewModel @Inject constructor(
     }
 
     override fun start() {
-        fetchNews()
+        fetchAllCategories()
     }
 
-    fun getMyFilterModel() = repository.fetchFilterModel()
 
+    var _myDateLis: MutableList<Article> = mutableListOf()
+
+    private fun fetchAllCategories(){
+        getMyFilterModel().categories.let {
+            it.forEach {model->
+                fetchNews(model.name)
+            }
+        }
+    }
+
+    private fun getMyFilterModel() = repository.fetchFilterModel()
 
     private val _headlineNews: MutableStateFlow<LiveDataResource<HeadlineResponse>> = MutableStateFlow(LiveDataResource.IDLE())
     val headlineNews: StateFlow<LiveDataResource<HeadlineResponse>> get() = _headlineNews
 
-    fun fetchNews(category: String = ""){
+    private var _allArticle: MutableStateFlow<LiveDataResource<MutableList<Article>>> = MutableStateFlow(LiveDataResource.IDLE())
+    val allArticle: StateFlow<LiveDataResource<MutableList<Article>>> get() = _allArticle
+
+
+
+    private fun fetchNews(category: String = ""){
         val data = repository.fetchFilterModel()
-        val requestCategory = if (category.isNullOrEmpty()){
-            data.categories[0].name
-        }else{
-            category
-        }
         _headlineNews.value = LiveDataResource.Loading()
         val requestModel = HeadlineRequest(
                 country = data.country,
-                pageSize = 100,
+                pageSize = 20,
                 page = 1,
-                category = requestCategory
+                category = category
         )
         headerParams["X-Api-Key"] = AppConstants.API_KEY
         headlineUseCase.execute({
             onComplete {
                 if (it.articles.isNotEmpty()){
                     _headlineNews.value = LiveDataResource.Success(it)
+                    _myDateLis.addAll(it.articles)
+                    _allArticle.value = LiveDataResource.Success(_myDateLis)
                 }else{
                     _headlineNews.value = LiveDataResource.NoData(it)
                 }
             }
             onError {
+                Timber.e("Error ${it.printStackTrace()}")
                 if (networkStatus){
                     _headlineNews.value = LiveDataResource.Error()
                 }else{

@@ -27,7 +27,6 @@ class SearchViewModel  @Inject constructor(
     }
 
     override fun start() {
-//        fetchNews()
     }
 
     fun getMyFilterModel() = repository.fetchFilterModel()
@@ -40,7 +39,8 @@ class SearchViewModel  @Inject constructor(
         _searchNews.value = LiveDataResource.Loading()
         val requestModel = HeadlineRequest(
                 q = queryTxt,
-                category = category
+                category = category,
+                country = getMyFilterModel().country
         )
         headerParams["X-Api-Key"] = AppConstants.API_KEY
         headlineUseCase.execute({

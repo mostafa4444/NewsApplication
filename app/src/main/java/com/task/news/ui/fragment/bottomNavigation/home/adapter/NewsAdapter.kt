@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -13,9 +14,10 @@ import com.task.news.databinding.NewsItemBinding
 import com.task.news.model.response.news.Article
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.ArticleClickEvent
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.NewsFavoriteClick
+import com.task.news.ui.fragment.bottomNavigation.home.adapter.diffUtils.NewsDiffUtils
 import com.task.news.utils.WidgetUtils.setGone
 
-class NewsAdapter (myList: List<Article> = listOf() , showDelete: Boolean = false) :
+class NewsAdapter (myList: List<Article> = listOf()) :
     RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
 
@@ -46,6 +48,14 @@ class NewsAdapter (myList: List<Article> = listOf() , showDelete: Boolean = fals
         this.eventListener = eventListener
         this.showDelete = showDelete
         this.articleListener = articleListener
+        val diffResult =
+            DiffUtil.calculateDiff(
+                NewsDiffUtils(
+                    this.trxList.toList(),
+                    myList
+                )
+            )
+        diffResult.dispatchUpdatesTo(this)
         notifyDataSetChanged()
     }
 
