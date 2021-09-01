@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
-    private val repository: LocalRepoImpl
 ) : BaseViewModel() {
     override fun stop() {
     }

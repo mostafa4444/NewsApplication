@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
-import com.task.news.databinding.CountryItemBinding
 import com.task.news.databinding.SelectedCategoryItemBinding
 import com.task.news.model.prefsModel.CategoryModel
+import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.CategoryClickEvent
 
 class SelectedCategoryRecycler  (
         myList: List<CategoryModel> = listOf()
@@ -18,7 +18,7 @@ class SelectedCategoryRecycler  (
     var trxList: List<CategoryModel> = ArrayList()
     private var checkedPosition = 0
     private var parent: ViewGroup? = null
-    var categoriesClickListener: CategoryClickEvent ?= null
+    var categoriesClickListener: CategoryClickEvent?= null
 
     init {
         this.trxList = myList

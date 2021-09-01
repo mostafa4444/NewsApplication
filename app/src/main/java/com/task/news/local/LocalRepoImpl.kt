@@ -3,7 +3,9 @@ package com.task.news.local
 import com.task.news.local.persistance.DAO
 import com.task.news.local.preference.PreferencesManager
 import com.task.news.model.prefsModel.FilterModel
+import com.task.news.model.response.news.Article
 import com.task.news.utils.constant.PrefsKeys
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 /*
@@ -50,6 +52,18 @@ class LocalRepoImpl @Inject constructor(
 
     override fun fetchFilterModel(): FilterModel {
         return prefManager.getObject(PrefsKeys.FILTER_MODEL , FilterModel::class.java)
+    }
+
+    override suspend fun insertArticle(article: Article): Long {
+        return myDao.insertArticleToDatabase(article)
+    }
+
+    override suspend fun fetchNewsFromRoom(): Flow<List<Article>> {
+        return myDao.getAllArticles()
+    }
+
+    override suspend fun deleteArticle(article: Article) {
+        myDao.deleteArticle(article)
     }
 
 

@@ -3,6 +3,7 @@ package com.task.news.ui.fragment.onboarding.landingCountry
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
@@ -41,14 +42,16 @@ class CountryFragment : BaseFragment<CountryViewModel, CountryFragmentBinding>()
                     val direction = CountryFragmentDirections.actionCountryFragmentToCategoryFragment(it.code)
                     findNavController().navigate(direction)
                 }
-                Timber.e("Selected is ${adapter.getCheckedCountry()}")
             }
         }
     }
 
     private fun initCountryAdapter(recyclerView: RecyclerView){
-        val countriesModels = arrayOf(CountryModel("fr") , CountryModel("eg") , CountryModel("us"))
-        recyclerView.layoutManager = LinearLayoutManager(context , LinearLayoutManager.VERTICAL , false)
+        val countriesModels = arrayOf(CountryModel("eg" , icon = R.drawable.ic_eg) ,
+                CountryModel("fr" , icon =R.drawable.ic_fr) ,
+                CountryModel("cz" , icon =R.drawable.ic_cz) ,
+                CountryModel("us" , icon =R.drawable.ic_us))
+        recyclerView.layoutManager = GridLayoutManager(context , 2,GridLayoutManager.VERTICAL , false)
         adapter.apply {
             submitMyList(countriesModels.toMutableList())
         }

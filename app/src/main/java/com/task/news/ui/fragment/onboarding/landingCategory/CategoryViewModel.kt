@@ -9,7 +9,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CategoryViewModel @Inject constructor(
-        private val repository: LocalRepoImpl
 ) : BaseViewModel() {
     override fun stop() {
     }

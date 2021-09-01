@@ -61,4 +61,20 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
     </style>
+
+    <style name="dialogs_btn_style">
+        <item name="android:layout_marginTop">@dimen/dp10h</item>
+        <item name="android:textSize">@dimen/sp10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/ok</item>
+        <item name="android:layout_width">@dimen/dp100w</item>
+        <item name="android:layout_height">@dimen/dp40h</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/abc_slide_in_top</item>
+        <item name="android:windowExitAnimation">@anim/abc_slide_out_bottom</item>
+    </style>
 </resources>

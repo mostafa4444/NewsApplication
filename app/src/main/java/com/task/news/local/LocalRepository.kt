@@ -1,6 +1,8 @@
 package com.task.news.local
 
 import com.task.news.model.prefsModel.FilterModel
+import com.task.news.model.response.news.Article
+import kotlinx.coroutines.flow.Flow
 
 
 interface LocalRepository {
@@ -14,4 +16,7 @@ interface LocalRepository {
     fun returnString(key: String): String
     fun submitSelectionProcess(filterModel: FilterModel)
     fun fetchFilterModel(): FilterModel
+    suspend fun insertArticle(article: Article): Long
+    suspend fun fetchNewsFromRoom(): Flow<List<Article>>
+    suspend fun deleteArticle(article: Article)
 }

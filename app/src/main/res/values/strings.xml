@@ -4,8 +4,12 @@
     <string name="category_content_description" translatable="false">Category logo bg</string>
     <string name="next_txt" translatable="false">Next</string>
     <string name="start_btn">Start</string>
-    <string name="max_cat_violation">You have to choose three category only</string>
+    <string name="max_cat_violation">You can not choose more than three category</string>
     <string name="complete_categories">You must choose three category to continue</string>
     <string name="search_txt">Search here…</string>
     <string name="type_to_search">Type or select category to proceed search process</string>
+    <string name="no_data">There is no data found now</string>
+    <string name="server_error">Ops, Something went wrong, please try again later</string>
+    <string name="network_error">Cannot connect to the internet, please make sure that you device connected to network.</string>
+    <string name="ok">Ok</string>
 </resources>

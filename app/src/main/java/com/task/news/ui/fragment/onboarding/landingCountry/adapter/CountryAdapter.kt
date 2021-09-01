@@ -1,8 +1,10 @@
 package com.task.news.ui.fragment.onboarding.landingCountry.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.task.news.R
@@ -54,25 +56,29 @@ class CountryAdapter (
     inner class ViewHolder(var Binding: CountryItemBinding) :
         RecyclerView.ViewHolder(Binding.root)  , View.OnClickListener{
         var myItemTX: CountryModel? = null
+        val context: Context = Binding.root.context
+        var selectedStrokeColor = ContextCompat.getColor(context , R.color.main_color)
+        var defaultStrokeColor = ContextCompat.getColor(context , R.color.white)
         init {
             Binding.countryContainer.setOnClickListener(this)
         }
 
         fun bind(myItem: CountryModel?) {
-            Binding.myItem = myItem
             if (checkedPosition == -1){
-                Binding.countryContainer.background = ContextCompat.getDrawable(Binding.root.context , R.drawable.default_country_border)
+                Binding.countryContainer.strokeColor = defaultStrokeColor
             }else{
                 if (checkedPosition == bindingAdapterPosition){
-                    Binding.countryContainer.background = ContextCompat.getDrawable(Binding.root.context , R.drawable.selected_country_border)
+                    Binding.countryContainer.strokeColor = selectedStrokeColor
                 }else{
-                    Binding.countryContainer.background = ContextCompat.getDrawable(Binding.root.context , R.drawable.default_country_border)
+                    Binding.countryContainer.strokeColor = defaultStrokeColor
                 }
             }
+            Binding.itemIcon.setImageDrawable(AppCompatResources.getDrawable(Binding.root.context , myItem?.icon!!))
+            Binding.myItem = myItem
         }
 
         override fun onClick(v: View?) {
-            Binding.countryContainer.background = ContextCompat.getDrawable(Binding.root.context , R.drawable.selected_country_border)
+            Binding.countryContainer.strokeColor = selectedStrokeColor
             if (checkedPosition != bindingAdapterPosition){
                 notifyItemChanged(checkedPosition)
                 checkedPosition = bindingAdapterPosition
