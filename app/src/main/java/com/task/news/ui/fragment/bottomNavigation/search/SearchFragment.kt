@@ -50,7 +50,7 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
                 if (baseViewBinding.searchEdt.text.toString().isNotEmpty() || searchCategory.isNotEmpty()){
                     baseViewModel?.searchNews(baseViewBinding.searchEdt.text.toString() , searchCategory)
                 }else{
-
+                    showDialog(getString(R.string.must_field) , getString(R.string.ok) , null)
                 }
             }
         }
@@ -63,7 +63,7 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
             chip.text = (it.name)
             chip.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    baseViewModel?.searchNews(baseViewBinding?.searchEdt.text.toString() , chip.text.toString())
+                    baseViewModel?.searchNews(baseViewBinding.searchEdt.text.toString() , chip.text.toString())
                     searchCategory = chip.text.toString()
                     Timber.e("Clicked ${chip.text}")
                 }else{
@@ -79,7 +79,6 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
         override fun newClickFavorite(article: Article , position: Int) {
             baseViewModel?.insertArticleToDatabase(article)
         }
-
     }
 
 

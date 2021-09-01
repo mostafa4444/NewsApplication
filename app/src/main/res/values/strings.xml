@@ -3,13 +3,16 @@
     <string name="splash_content_description" translatable="false">Splash logo bg</string>
     <string name="category_content_description" translatable="false">Category logo bg</string>
     <string name="next_txt" translatable="false">Next</string>
-    <string name="start_btn">Start</string>
-    <string name="max_cat_violation">You can not choose more than three category</string>
-    <string name="complete_categories">You must choose three category to continue</string>
-    <string name="search_txt">Search here…</string>
-    <string name="type_to_search">Type or select category to proceed search process</string>
-    <string name="no_data">There is no data found now</string>
-    <string name="server_error">Ops, Something went wrong, please try again later</string>
-    <string name="network_error">Cannot connect to the internet, please make sure that you device connected to network.</string>
-    <string name="ok">Ok</string>
+    <string name="start_btn" translatable="false">Start</string>
+    <string name="max_cat_violation" translatable="false">You can not choose more than three category</string>
+    <string name="complete_categories" translatable="false">You must choose three category to continue</string>
+    <string name="search_txt" translatable="false">Search here…</string>
+    <string name="type_to_search" translatable="false">Type or select category to proceed search process</string>
+    <string name="no_data" translatable="false">There is no data found now</string>
+    <string name="server_error" translatable="false">Ops, Something went wrong, please try again later</string>
+    <string name="network_error" translatable="false">Cannot connect to the internet, please make sure that you device connected to network.</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="must_field" translatable="false">You must choose category or type in search field to search</string>
+    <string name="imagedialog" translatable="false">imageDialog</string>
+    <string name="search_icon" translatable="false">search icon</string>
 </resources>

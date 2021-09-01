@@ -26,12 +26,7 @@ abstract class BaseViewModel : ViewModel() {
 
     fun insertArticleToDatabase(article: Article){
         viewModelScope.launch {
-            val reponse =  repository.insertArticle(article)
-            if (reponse > 0){
-                Timber.e("Insertion Success")
-            }else{
-                Timber.e("Insertion Failed")
-            }
+            repository.insertArticle(article)
         }
     }
 

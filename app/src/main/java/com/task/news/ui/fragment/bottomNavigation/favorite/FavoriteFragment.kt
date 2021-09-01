@@ -14,6 +14,7 @@ import com.task.news.ui.fragment.bottomNavigation.home.HomeFragmentDirections
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.NewsAdapter
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.ArticleClickEvent
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.NewsFavoriteClick
+import com.task.news.utils.WidgetUtils.setGone
 import com.task.news.utils.WidgetUtils.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -44,8 +45,17 @@ class FavoriteFragment : BaseFragment<FavoriteViewModel, FavoriteFragmentBinding
     private fun bindDataFromRoom(){
         lifecycleScope.launchWhenStarted {
             baseViewModel?.fetchArticlesFromRoom()?.collect {
-                items = it.toMutableList()
-                initCategoryRecycler(baseViewBinding.newsRecycler , items!!)
+                if (it.isNullOrEmpty()){
+                    baseViewBinding.newsShimmer.setGone()
+                    baseViewBinding.noDataLayout.root.setVisible()
+                    baseViewBinding.newsRecycler.setGone()
+                }else{
+                    baseViewBinding.newsShimmer.setGone()
+                    baseViewBinding.noDataLayout.root.setGone()
+                    items = it.toMutableList()
+                    initCategoryRecycler(baseViewBinding.newsRecycler , items!!)
+                }
+
             }
         }
     }

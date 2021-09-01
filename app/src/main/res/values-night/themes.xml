@@ -1,10 +1,80 @@
-<resources >
+<resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/main_color</item>
         <item name="colorPrimaryVariant">@color/main_color</item>
-        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorOnPrimary">@color/main_color</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+
+    <style name="onboarding_btn_style">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/sp20</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:backgroundTint">@color/main_color</item>
+        <item name="android:layout_marginStart">@dimen/dp30w</item>
+        <item name="android:layout_marginEnd">@dimen/dp30w</item>
+        <item name="android:layout_marginBottom">@dimen/dp30h</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp55h</item>
+    </style>
+
+
+    <style name="custom_choice_chip" parent="AppChipTheme">
+        <item name="android:checked">false</item>
+        <item name="android:textColor">@drawable/chip_selected_text_xolor</item>
+        <item name="android:textAppearance">@style/chipText</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="AppChipTheme" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipCornerRadius">15dp</item>
+        <item name="checkedIconEnabled">true</item>
+        <item name="checkedIconVisible">true</item>
+        <item name="checkedIcon">@drawable/ic_tick</item>
+        <item name="chipBackgroundColor">@drawable/chip_bg</item>
+        <item name="chipStrokeWidth">@dimen/dp2w</item>
+        <item name="chipStrokeColor">@color/main_color</item>
+        <item name="chipIconSize">@dimen/sp14</item>
+    </style>
+
+    <style name="chipText" parent="TextAppearance.MaterialComponents.Chip">
+        <item name="android:textSize">@dimen/sp12</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="BottomNavigationViewTextStyle">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="tab_text_style">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textSize">@dimen/sp12</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="dialogs_btn_style">
+        <item name="android:layout_marginTop">@dimen/dp10h</item>
+        <item name="android:textSize">@dimen/sp10</item>
+        <item name="android:gravity">center</item>
+        <item name="android:text">@string/ok</item>
+        <item name="android:layout_width">@dimen/dp100w</item>
+        <item name="android:layout_height">@dimen/dp40h</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/abc_slide_in_top</item>
+        <item name="android:windowExitAnimation">@anim/abc_slide_out_bottom</item>
     </style>
 </resources>
