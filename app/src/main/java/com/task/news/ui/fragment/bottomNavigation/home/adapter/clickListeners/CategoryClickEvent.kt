@@ -1,4 +1,4 @@
-package com.task.news.ui.fragment.bottomNavigation.home.adapter
+package com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners
 
 import com.task.news.model.prefsModel.CategoryModel
 

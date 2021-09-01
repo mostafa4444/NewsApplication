@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import com.task.news.local.preference.PreferencesManager
+import com.task.news.utils.DialogBuilder
 import com.task.news.utils.NetworkConnection
 import javax.inject.Inject
 
@@ -86,43 +88,14 @@ abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
     }
 
-
-//    fun showError(error: String, btnTitle: String?, myAction: (() -> Unit)?) {
-//        CustomAlertDialog.showMyCustomDialog(
-//            requireActivity() as AppCompatActivity,
-//            CustomAlertDialog.Type.ERROR,
-//            btnTitle!!,
-//            error,
-//            myAction
-//        )
-//    }
-
-//    private fun showSuccess(msg: String, btnTitle: String?) {
-//        if (btnTitle.isNullOrEmpty()){
-//            CustomAlertDialog.showMyCustomDialog(
-//                requireActivity() as AppCompatActivity, CustomAlertDialog.Type.SUCCESS, this.getString(
-//                    R.string.ok
-//                ), msg, dialogDismissAction
-//            )
-//        }else{
-//            CustomAlertDialog.showMyCustomDialog(
-//                requireActivity() as AppCompatActivity,
-//                CustomAlertDialog.Type.SUCCESS,
-//                btnTitle,
-//                msg,
-//                dialogDismissAction
-//            )
-//        }
-//    }
-
-//    fun showProceedDismiss(msg: String, btnTitle: String?, myAction: (() -> Unit)?) {
-//        CustomAlertDialog.showDismissProceedDialog(
-//            requireActivity() as AppCompatActivity,
-//            msg,
-//            btnTitle!!,
-//            myAction
-//        )
-//    }
+    fun showDialog(msg: String, btnTitle: String?, myAction: (() -> Unit)?) {
+        DialogBuilder.showAdviceDialog(
+            requireActivity() as AppCompatActivity,
+            btnTitle!!,
+            msg,
+            myAction
+        )
+    }
 
     override fun onDestroy() {
         super.onDestroy()

@@ -1,12 +1,6 @@
 package com.task.news.ui.fragment.bottomNavigation.search
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
-import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -15,22 +9,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.task.news.R
 import com.task.news.base.BaseFragment
-import com.task.news.databinding.ActivityMainBinding.inflate
-import com.task.news.databinding.CountryFragmentBinding
 import com.task.news.databinding.SearchFragmentBinding
-import com.task.news.model.prefsModel.CategoryModel
-import com.task.news.model.prefsModel.CountryModel
 import com.task.news.model.response.news.Article
-import com.task.news.ui.activity.MainActivity
+import com.task.news.ui.fragment.bottomNavigation.home.HomeFragmentDirections
+import com.task.news.ui.fragment.bottomNavigation.home.HomeViewModel
 import com.task.news.ui.fragment.bottomNavigation.home.adapter.NewsAdapter
-import com.task.news.ui.fragment.onboarding.landingCountry.CountryFragmentDirections
-import com.task.news.ui.fragment.onboarding.landingCountry.CountryViewModel
-import com.task.news.ui.fragment.onboarding.landingCountry.adapter.CountryAdapter
-import com.task.news.utils.AnimationUtils
+import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.ArticleClickEvent
+import com.task.news.ui.fragment.bottomNavigation.home.adapter.clickListeners.NewsFavoriteClick
 import com.task.news.utils.LiveDataResource
 import com.task.news.utils.WidgetUtils.setGone
-import com.task.news.utils.WidgetUtils.setHintTextColor
-import com.task.news.utils.WidgetUtils.setTextColor
 import com.task.news.utils.WidgetUtils.setVisible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -61,7 +48,7 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
         when(v){
             baseViewBinding.searchBtn->{
                 if (baseViewBinding.searchEdt.text.toString().isNotEmpty() || searchCategory.isNotEmpty()){
-                    baseViewModel?.fetchNews(baseViewBinding.searchEdt.text.toString() , searchCategory)
+                    baseViewModel?.searchNews(baseViewBinding.searchEdt.text.toString() , searchCategory)
                 }else{
 
                 }
@@ -76,7 +63,7 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
             chip.text = (it.name)
             chip.setOnCheckedChangeListener { _, isChecked ->
                 if (isChecked) {
-                    baseViewModel?.fetchNews(baseViewBinding?.searchEdt.text.toString() , chip.text.toString())
+                    baseViewModel?.searchNews(baseViewBinding?.searchEdt.text.toString() , chip.text.toString())
                     searchCategory = chip.text.toString()
                     Timber.e("Clicked ${chip.text}")
                 }else{
@@ -88,6 +75,12 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
             baseViewBinding.categoryChip.addView(chip)
         }
     }
+    private val favoriteClickCallback = object : NewsFavoriteClick {
+        override fun newClickFavorite(article: Article , position: Int) {
+            baseViewModel?.insertArticleToDatabase(article)
+        }
+
+    }
 
 
     private fun bindSearchData(){
@@ -98,18 +91,48 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
                         Timber.e("Size is ${it.data?.articles?.size}")
                         baseViewBinding.newsRecycler
                         it.data?.articles?.let { data->
-                            baseViewBinding.newsShimmer.root.setGone()
+                            baseViewBinding.newsShimmer.setGone()
+                            baseViewBinding.noNetworkLayout.root.setGone()
+                            baseViewBinding.noDataLayout.root.setGone()
+                            baseViewBinding.serverErrorLayout.root.setGone()
                             initNewsAdapter(baseViewBinding.newsRecycler , data.toMutableList())
                         }
                     }
-                    is LiveDataResource.Loading -> {
-                        baseViewBinding.newsShimmer.root.setVisible()
+                    is LiveDataResource.NoData -> {
+                        baseViewBinding.newsShimmer.setGone()
                         baseViewBinding.newsRecycler.setGone()
+                        baseViewBinding.noNetworkLayout.root.setGone()
+                        baseViewBinding.noDataLayout.root.setVisible()
+                        baseViewBinding.serverErrorLayout.root.setGone()
+                    }
+                    is LiveDataResource.Loading -> {
+                        baseViewBinding.newsShimmer.setVisible()
+                        baseViewBinding.newsRecycler.setGone()
+                        baseViewBinding.noNetworkLayout.root.setGone()
+                        baseViewBinding.noDataLayout.root.setGone()
+                        baseViewBinding.serverErrorLayout.root.setGone()
+                    }
+                    is LiveDataResource.NoNetwork -> {
+                        baseViewBinding.newsShimmer.setGone()
+                        baseViewBinding.newsRecycler.setGone()
+                        baseViewBinding.noNetworkLayout.root.setVisible()
+                        baseViewBinding.noDataLayout.root.setGone()
+                        baseViewBinding.serverErrorLayout.root.setGone()
                     }
                     is LiveDataResource.Error -> {
-                        baseViewBinding.newsShimmer.root.setGone()
+                        baseViewBinding.newsShimmer.setGone()
                         baseViewBinding.newsRecycler.setGone()
-                    }else->{}
+                        baseViewBinding.noNetworkLayout.root.setGone()
+                        baseViewBinding.noDataLayout.root.setGone()
+                        baseViewBinding.serverErrorLayout.root.setVisible()
+                    }
+                    else->{
+                        baseViewBinding.newsShimmer.setGone()
+                        baseViewBinding.newsRecycler.setGone()
+                        baseViewBinding.noNetworkLayout.root.setGone()
+                        baseViewBinding.noDataLayout.root.setVisible()
+                        baseViewBinding.serverErrorLayout.root.setGone()
+                    }
                 }
             }
         }
@@ -118,11 +141,18 @@ class SearchFragment : BaseFragment<SearchViewModel, SearchFragmentBinding>() {
     private fun initNewsAdapter(recyclerView: RecyclerView, itemList: MutableList<Article>){
         recyclerView.layoutManager = LinearLayoutManager(context ,  LinearLayoutManager.VERTICAL , false)
         val adapter = NewsAdapter().apply {
-            submitMyList(itemList)
+            submitMyList(itemList , favoriteClickCallback , articleClickCallback)
         }
         recyclerView.setVisible()
         recyclerView.adapter = adapter
         recyclerView.startLayoutAnimation()
+    }
+
+    private val articleClickCallback = object : ArticleClickEvent {
+        override fun articleClickEvent(article: Article) {
+            val direction = SearchFragmentDirections.actionSearchFragmentToWebFragment(article.url.toString())
+            findNavController().navigate(direction)
+        }
     }
 
 

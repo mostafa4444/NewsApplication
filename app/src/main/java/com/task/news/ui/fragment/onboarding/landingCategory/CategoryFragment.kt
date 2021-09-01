@@ -36,7 +36,7 @@ class CategoryFragment : BaseFragment<CategoryViewModel, CategoryFragmentBinding
         when(v){
             baseViewBinding.toHomeBtn->{
                 if (adapter.getSelectedList().size != 3){
-                    Toast.makeText(context , getString(R.string.complete_categories) , Toast.LENGTH_SHORT).show()
+                    showDialog(getString(R.string.complete_categories) , getString(R.string.ok) , null)
                 }else{
                     baseViewModel?.saveFilterModel_saveSelectionState(FilterModel(categories = adapter.getSelectedList() , args.countryCode))
                     findNavController().navigate(R.id.action_categoryFragment_to_homeFragment)

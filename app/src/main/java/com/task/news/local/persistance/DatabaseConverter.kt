@@ -6,7 +6,7 @@ import com.task.news.model.response.news.Source
 class DatabaseConverter {
     @TypeConverter
     fun fromSource(source: Source): String {
-        return source.name
+        return source.name.toString()
     }
 
     @TypeConverter

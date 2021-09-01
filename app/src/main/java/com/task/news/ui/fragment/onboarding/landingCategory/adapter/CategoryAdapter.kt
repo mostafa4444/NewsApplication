@@ -67,7 +67,6 @@ class CategoryAdapter (
                     itemBinding.categoryContainer.strokeColor = selectedStrokeColor
                 }else{
                     itemBinding.categoryContainer.strokeColor = defaultStrokeColor
-
                 }
             itemBinding.myItem = myItem
 

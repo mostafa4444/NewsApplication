@@ -9,6 +9,7 @@
     </data>
 
 <com.google.android.material.card.MaterialCardView
+    android:id="@+id/article_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+
         <ImageView
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,6 +32,24 @@
             android:src="@mipmap/ic_launcher"
             android:scaleType="fitXY"/>
 
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:backgroundTint="#6000"
+            android:background="@drawable/circle_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="10dp"
+            android:id="@+id/fav_linear"
+            android:layout_width="@dimen/dp30w"
+            android:layout_height="@dimen/dp30h">
+            <ImageView
+                android:id="@+id/fav_icon"
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_favorite_border_24"/>
+        </LinearLayout>
         <TextView
             android:text="@{myItem.title}"
             android:textSize="@dimen/sp10"
